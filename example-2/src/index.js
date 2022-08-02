@@ -10,26 +10,20 @@ const port = 3000;
 // Original code for this:
 // https://medium.com/better-programming/video-stream-with-node-js-and-html5-320b3191a6b6
 //
-app.get("/video", (req, res) => {
+app.get("/video", async (req, res) => {
 
     //
     // Original video from here:
     // https://sample-videos.com
     //
     const path = "../videos/SampleVideo_1280x720_1mb.mp4";
-    fs.stat(path, (err, stats) => {
-        if (err) {
-            console.error("An error occurred ");
-            res.sendStatus(500);
-            return;
-        }
+    const stats = await fs.promises.stat(path);
 
-        res.writeHead(200, {
-            "Content-Length": stats.size,
-            "Content-Type": "video/mp4",
-        });
-        fs.createReadStream(path).pipe(res);
+    res.writeHead(200, {
+        "Content-Length": stats.size,
+        "Content-Type": "video/mp4",
     });
+    fs.createReadStream(path).pipe(res);
 });
 
 //
