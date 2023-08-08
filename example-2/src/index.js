@@ -11,24 +11,19 @@ const port = 3000;
 // https://medium.com/better-programming/video-stream-with-node-js-and-html5-320b3191a6b6
 //
 app.get("/video", async (req, res) => {
-
-    //
-    // Original video from here:
-    // https://sample-videos.com
-    //
-    const path = "../videos/SampleVideo_1280x720_1mb.mp4";
-    const stats = await fs.promises.stat(path);
+    const videoPath = "../videos/SampleVideo_1280x720_1mb.mp4";
+    const stats = await fs.promises.stat(videoPath);
 
     res.writeHead(200, {
         "Content-Length": stats.size,
         "Content-Type": "video/mp4",
     });
-    fs.createReadStream(path).pipe(res);
+    fs.createReadStream(videoPath).pipe(res);
 });
 
 //
 // Starts the HTTP server.
 //
 app.listen(port, () => {
-    console.log(`Microservice listening on port ${port}, point your browser at http://localhost:3000/video`);
+    console.log(`Microservice listening on port ${port}, point your browser at http://localhost:${port}/video`);
 });

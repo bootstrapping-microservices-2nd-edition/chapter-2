@@ -22,4 +22,4 @@ Or
 
     npm start
 
-Then point your browser at http://localhost:3000/videos
+Then point your browser at http://localhost:3000/video
